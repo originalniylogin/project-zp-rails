@@ -1,0 +1,1 @@
+json.projects @projects, partial: 'api/projects/project', as: :project

@@ -1,9 +1,17 @@
 class User < ApplicationRecord
   has_many :payments
-  has_many :project_users, dependent: :destroy
-  has_many :project, through: :project_users
+  has_many :projects_users, dependent: :destroy
+  has_many :projects, through: :projects_users
 
-  accepts_nested_attributes_for :project_users, allow_destroy: true
+  accepts_nested_attributes_for :projects_users, allow_destroy: true
 
   validates :name, presence: true
+
+  def current_payments
+    payments.unpayed
+  end
+
+  def old_payments
+    payments.payed
+  end
 end
