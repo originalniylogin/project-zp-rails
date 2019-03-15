@@ -19,14 +19,16 @@ module Api
     end
 
     def update
-      if @project.save
+      if @project.update(project_params)
         render :update, status: :updated
       else
         render json: { errors: @project.errors.full_messages }, status: :unprocessable_entity
       end
     end
 
-    def destroy; end
+    def destroy
+      @project.destroy
+    end
 
     private
 

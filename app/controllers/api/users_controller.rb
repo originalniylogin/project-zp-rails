@@ -19,19 +19,33 @@ module Api
     end
 
     def update
-      if @user.save
+      if @user.update(user_params)
         render :update, status: :updated
       else
         render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
       end
     end
 
-    def destroy; end
+    def destroy
+      @user.destroy
+    end
 
     private
 
     def user_params
-      params.require(:user).permit(:id, :name, :alias, projects_users_attributes: [:id, :project_id, :rate, :typeofrate, :currency, :_destroy])
+      params.require(:user).permit(
+        :id,
+        :name,
+        :alias,
+        projects_users_attributes: [
+          :id,
+          :project_id,
+          :rate,
+          :typeofrate,
+          :currency,
+          :_destroy
+        ]
+      )
     end
 
     def set_user
