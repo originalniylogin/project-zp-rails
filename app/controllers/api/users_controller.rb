@@ -7,7 +7,7 @@ module Api
     end
 
     def show; end
-    
+
     def create
       @user = User.new(user_params)
 
